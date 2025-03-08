@@ -5,7 +5,7 @@ let targetDate = new Date(new Date().getTime() + 10 * 60 * 1000); // 10分後の
 
 function startCountdown() {
   if (countdown) {
-    clearInterval(countdown); // 既存のカウントダウンを停止
+    clearInterval(countdown); // 既存のカウントダウンを停止(変更)
   }
 
   countdown = setInterval(updateCountdown, 1000); // 1秒ごとに更新
