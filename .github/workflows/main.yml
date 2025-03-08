@@ -24,7 +24,8 @@ jobs:
           aws-region: us-east-1
       - name: Upload to S3
         run: |
-          aws s3 cp index.html s3://countdown-tool-js/index.html
-          aws s3 cp style.css s3://countdown-tool-js/style.css
-          aws s3 cp script.js s3://countdown-tool-js/script.js
+          if [["${{ startsWith(github.head_ref, 'upload') }}" == "true"]]
+            aws s3 cp index.html s3://countdown-tool-js/index.html
+            aws s3 cp style.css s3://countdown-tool-js/style.css
+            aws s3 cp script.js s3://countdown-tool-js/script.js
           
