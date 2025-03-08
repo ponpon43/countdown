@@ -1,0 +1,30 @@
+name: Upload to S3 JS
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [closed]
+
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::249154813184:role/role-js-for-countdown
+          aws-region: us-east-1
+      - name: Upload to S3
+        run: |
+          aws s3 cp index.html s3://countdown-tool-js/index.html
+          aws s3 cp style.css s3://countdown-tool-js/style.css
+          aws s3 cp script.js s3://countdown-tool-js/script.js
